@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import tws.entity.Employee;
-import tws.repository.EmployeeMapper;
+import tws.entity.ParkingLot;
+import tws.repository.ParkingLotMapper;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
-public class EmployeeController {
+@RequestMapping("/ParkingLots")
+public class ParkingLotController {
 
     @Autowired
-    private EmployeeMapper employeeMapper;
+    private ParkingLotMapper ParkingLotMapper;
 
     @GetMapping("")
-    public ResponseEntity<List<Employee>> getAll() {
-        return ResponseEntity.ok(employeeMapper.selectAll());
+    public ResponseEntity<List<ParkingLot>> getAll() {
+        return ResponseEntity.ok(ParkingLotMapper.selectAll());
     }
 
     @PostMapping("")
-    public ResponseEntity<Employee> insert(@RequestBody Employee employee) {
-        employeeMapper.insert(employee);
-        return ResponseEntity.created(URI.create("/employees/" + employee.getId())).body(employee);
+    public ResponseEntity<ParkingLot> insert(@RequestBody ParkingLot ParkingLot) {
+        ParkingLotMapper.insert(ParkingLot);
+        return ResponseEntity.created(URI.create("/ParkingLots/" + ParkingLot.getParkingLotID())).body(ParkingLot);
     }
     
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateEmployee(@RequestBody Employee employee){
-       employeeMapper.updateEmployee(employee);
+    public void updateParkingLot(@RequestBody ParkingLot ParkingLot){
+       ParkingLotMapper.updateParkingLot(ParkingLot);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEmployee(@PathVariable("id") int id){
-        employeeMapper.deleteEmployee(id);
+    public void deleteParkingLot(@PathVariable("id") String id){
+        ParkingLotMapper.deleteParkingLot(id);
     }
 }
