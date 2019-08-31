@@ -33,7 +33,7 @@ public class EmployeeMapperTest {
     public void tearDown() throws Exception {
         JdbcTestUtils.deleteFromTables(jdbcTemplate, "employee");
     }
-
+//²é
     @Test
     public void shouldFetchAllEmployees() {
         // given
@@ -42,5 +42,39 @@ public class EmployeeMapperTest {
         List<Employee> employeeList = employeeMapper.selectAll();
         // then
         assertEquals(1, employeeList.size());
+    }
+//Ôö 
+    @Test
+    public void should_fetch_emloyee_when_insert_one_employee_given_a_insert() {
+        // given
+     Employee employee = new Employee(1, "lisi", "18");
+        // when
+        employeeMapper.insert(employee);
+        List<Employee> employees = employeeMapper.selectAll();
+        // then
+        assertEquals("lisi", employees.get(0).getName());
+    }
+//¸Ä
+    @Test
+    public void should_fetch_emloyee_when_update_one_employee_given_a_update() {
+    	//given
+    	Employee employee =new Employee(1,"caozhu","18");
+    	//when
+    	employeeMapper.updateEmployee(employee);
+    	List<Employee> employees=employeeMapper.selectAll();
+    	//then
+    	assertEquals("caozhu",employees.get(0).getName());
+    }
+    
+//É¾
+    @Test
+    public void should_fetch_emloyee_when_delete_one_employee_given_a_delete() {
+    	//given
+    	Employee employee =new Employee(1,"caozhu","18");
+    	//when
+    	employeeMapper.deleteEmployee(1);
+    	List<Employee> employees=employeeMapper.selectAll();
+    	//then
+    	assertEquals(0,employees.size());
     }
 }

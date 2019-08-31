@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+import tws.entity.Employee;
 import tws.entity.ParkingLot;
 
 @RunWith(SpringRunner.class)
@@ -41,7 +42,7 @@ public class ParkingLotMapperTest {
     public void tearDown() throws Exception {
         JdbcTestUtils.deleteFromTables(jdbcTemplate, "parkinglot");
     }
-    
+  //²é  
     @Test
     public void shouldFetchAllParkingLots() {
         // given
@@ -51,7 +52,7 @@ public class ParkingLotMapperTest {
         // then
         assertEquals(1, parkingLotsList.size());
     }
-    
+  //Ôö 
     @Test
     public void shouldGetParkingLotWhenCallInsertParkingLot() {
         // given
@@ -62,5 +63,26 @@ public class ParkingLotMapperTest {
         assertEquals(1, parkingLotsList.get(0).getParkingLotID());
         assertEquals(10, parkingLotsList.get(0).getParkingLotCount());
         assertEquals(10, parkingLotsList.get(0).getAvailablePositionCount());
+    }
+  //¸Ä
+    @Test
+    public void should_fetch_emloyee_when_update_one_employee_given_a_update() {
+    	//given
+    	parkingLotMapper.insert(new ParkingLot("1", 20, 10));
+    	//when
+        List<ParkingLot> parkingLotsList = parkingLotMapper.selectAll();
+    	//then
+        assertEquals(20, parkingLotsList.get(0).getParkingLotCount());
+    }
+    
+//É¾
+    @Test
+    public void should_fetch_emloyee_when_delete_one_employee_given_a_delete() {
+    	// given
+    	parkingLotMapper.deleteParkingLot("1");
+        // when
+        List<ParkingLot> parkingLotsList = parkingLotMapper.selectAll();
+    	//then
+    	assertEquals(0,parkingLotsList.size());
     }
 }
